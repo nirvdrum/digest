@@ -6,7 +6,7 @@ require 'test/unit'
 require 'tempfile'
 
 require 'digest'
-%w[digest/md5 digest/rmd160 digest/sha1 digest/sha2 digest/bubblebabble].each do |lib|
+%w[digest/md5 digest/rmd160 digest/sha1 digest/sha2 digest/bubblebabble digest/blake3].each do |lib|
   begin
     require lib
   rescue LoadError
@@ -122,6 +122,15 @@ module TestDigest
     hash = Digest::SHA256.new
     assert_equal expected, hash.bubblebabble
   end
+
+  class TestBLAKE3 < Test::Unit::TestCase
+    include TestDigest
+    ALGO = Digest::BLAKE3
+    DATA = {
+      Data1 => "6437b3ac38465133ffb63b75273a8db548c558465d79db03fd359c6cd5bd9d85",
+      Data2 => "c19012cc2aaf0dc3d8e5c45a1b79114d2df42abb2a410bf54be09e891af06ff8",
+    }
+  end if defined?(Digest::BLAKE3)
 
   class TestMD5 < Test::Unit::TestCase
     include TestDigest
