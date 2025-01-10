@@ -14,7 +14,7 @@ module TestDigestRactor
   Data2 = "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq"
 
   def test_s_hexdigest
-    assert_in_out_err([], <<-"end;", ["true", "true"], [])
+    assert_in_out_err(["-I", File.expand_path("../../lib", __dir__)], <<-"end;", ["true", "true"], [])
       $VERBOSE = nil
       require "digest"
       require "#{self.class::LIB}"
